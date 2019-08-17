@@ -1,13 +1,34 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container log-list">
+
+  <block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>
+
   <view class="userinfo">
+
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
+
   </view>
+
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+
+
+  <view class="page__bd page__bd_spacing">
+    <button class="weui-btn" type="primary" bindtap='onClick_Simple'>进入控制界面</button>
+  </view>
+
+
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__text">Copyright ©zhigege https://github.com/chinazhi</view>
+  </view>
+
 </view>

@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: 'Welcome To My Smart Home System',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -50,5 +50,17 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  onClick_Simple: function () {
+    wx.navigateTo({
+      url: '../simpleDemo/simple',
+    })
   }
+
 })
+
+
+
+
+
