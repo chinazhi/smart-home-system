@@ -23,7 +23,7 @@
 
 
   <view class="page__bd page__bd_spacing">
-    <button class="weui-btn" type="primary" bindtap='onClick_Simple'>进入控制界面</button>
+    <button class="weui-btn" type="primary" bindtap='onClick_Simple'>进入主控制界面</button>
   </view>
 
 

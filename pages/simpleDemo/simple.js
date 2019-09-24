@@ -10,7 +10,7 @@ Page({
     //MQTT连接的配置
     options: {
       protocolVersion: 4, //MQTT连接协议版本
-      clientId: 'miniTest',
+      clientId: 'Zhigege',
       clean: false,
       password: 'public',
       username: 'admin',
@@ -25,6 +25,7 @@ Page({
     var that = this;
     //开始连接
     this.data.client = mqtt.connect(host, this.data.options);
+
     this.data.client.on('connect', function (connack) {
       wx.showToast({
         title: '连接成功'
@@ -36,7 +37,7 @@ Page({
     that.data.client.on("message", function (topic, payload) {
       console.log(" 收到 topic:" + topic + " , payload :" + payload)
       wx.showModal({
-        content: " 收到topic:[" + topic + "], payload :[" + payload + "]",
+        content:  " Result :" + payload + "！",
         showCancel: false,
       });
     })
@@ -63,10 +64,11 @@ Page({
 
 
   },
+
   onClick_SubOne: function () {
     if (this.data.client && this.data.client.connected) {
       //仅订阅单个主题
-      this.data.client.subscribe('Topic0', function (err, granted) {
+      this.data.client.subscribe('/zhigege/pub', function (err, granted) {
         if (!err) {
           wx.showToast({
             title: '订阅主题成功'
@@ -79,7 +81,8 @@ Page({
           })
         }
       })
-    } else {
+    } 
+    else {
       wx.showToast({
         title: '请先连接服务器',
         icon: 'none',
@@ -87,6 +90,7 @@ Page({
       })
     }
   },
+
   onClick_SubMany: function () {
 
     if (this.data.client && this.data.client.connected) {
@@ -119,13 +123,16 @@ Page({
       })
     }
   },
+
+  //推送消息
   onClick_PubMsg: function () {
     if (this.data.client && this.data.client.connected) {
-      this.data.client.publish('hello', 'i am  from wechat msg');
+      this.data.client.publish('/zhigege/sub', '1');
       wx.showToast({
         title: '发布成功'
       })
-    } else {
+    } 
+    else {
       wx.showToast({
         title: '请先连接服务器',
         icon: 'none',
@@ -133,10 +140,13 @@ Page({
       })
     }
   },
+
+  //取消单个订阅
   onClick_unSubOne: function () {
     if (this.data.client && this.data.client.connected) {
-      this.data.client.unsubscribe('Topic1');
-    } else {
+      this.data.client.unsubscribe('Topic0');
+    } 
+    else {
       wx.showToast({
         title: '请先连接服务器',
         icon: 'none',
@@ -144,10 +154,14 @@ Page({
       })
     }
   },
+
+  //取消多个订阅
   onClick_unSubMany: function () {
     if (this.data.client && this.data.client.connected) {
       this.data.client.unsubscribe(['Topic1', 'Topic2']);
-    } else {
+    } 
+    
+    else {
       wx.showToast({
         title: '请先连接服务器',
         icon: 'none',
@@ -155,9 +169,10 @@ Page({
       })
     }
   },
+
   onLoad: function () {
     wx.setNavigationBarTitle({
-      title: '服务器连接'
+      title: '智能家居总控界面'
     })
   }
 })
